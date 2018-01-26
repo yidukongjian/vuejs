@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>做一个小东西</title>
+  <style>
+    *{ margin:0; padding:0; list-style:none; }
+    .main { width:100%; height:auto;}
+    .title { width:100%; height:80px; color:#fff; font-size:24px; font-weight:500; text-align:center; line-height:80px; background:#5ac8fa; }
+    .wrap { width:1000px; height:auto; margin:0 auto; }
+    .btn-group { width:100%; height:40px; }
+    .btn-group a { float:right; display:block; width:150px; height:100%; margin-left:15px; color:#fff; text-align:center; line-height:40px; background:#5ac8fa; text-decoration:none; }
+    .wrap-text { margin:20px 0;padding:0 10px; width:980px; height:40px; border:1px solid #DDDDDD; }
+    .tip { color:#CC5522; }
+    .mt20 { margin-top:20px; }
+    .wrap-none { width:100%; height:40px; margin-top:15px; text-align:center; line-height:40px; background:#EEEEEE; }
+    .wrap-list { width:100%; height:auto; margin-top:15px; }
+    .wrap-list li { width:100%; height:40px; line-height:40px; }
+    input[type='checkbox'] { display:none; }
+    input[type='checkbox']+label { display:inline-block;}
+    label::before { content:''; display:inline-block; position:relative; width:20px; height:20px; margin:0 10px; text-align:center; line-height:20px; border:1px solid #5AC8FA; vertical-align:middle; background:transparent; }
+    input[type="checkbox"]:checked+label::before { content:'\2714'; position:relative; color:#5AC8FA; font-size:18px; }
+    .wrap-box { width:100%; height:100%; border-bottom:1px solid #EEEEEE; }
+    .deleted label{ color:#999; text-decoration:line-through; }
+    .wrap-box a { float:right; color:#B52E31; font-size:18px; text-decoration:none; display:none; }
+    .wrap-box:hover a { display:block; }
+    .wrap-input { display:none; width:80%; height:100%; padding:0 5px;  }
+  </style>
+</head>
+<body>
+  <div class="main">
+    <h2 class="title">任务计划列表</h2>
+    <div class="wrap" id="list">
+      <h3 class="mt20">添加任务列表</h3>
+      <input type="text" class="wrap-text" @keyup.13="addOneList" v-model="todo" placeholder="请输入您要添加的内容" />
+      <p class="btn-group">
+        <span class="tip"><span class="num">1</span>个任务未完成</span>
+        <a href="javascript:;">已完成任务</a>
+        <a href="javascript:;">未完成任务</a>
+        <a href="javascript:;">所有任务</a>
+      </p>
+      <ul class="wrap-list">
+        <li v-for="(data,index) in dataList">
+          <div class="wrap-box" :class="{'deleted':data.isChecked}">
+            <input type="checkbox" class="check" :id="'check_num_'+index" :checked="data.isChecked" />
+            <label :for="'check_num_'+index">{{ data.title }}</label>
+            <a href="javascript:;">&#10007</a>
+          </div>
+          <input type="text" class="wrap-input" />
+        </li>
+      </ul>
+      <p class="wrap-none" v-show="isShow == 0">没有任务</p>
+    </div>
+  </div>
+  <script src="js/vue.min.js"></script>
+  <script src="js/list.js"></script>
+</body>
+</html>
